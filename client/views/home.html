@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Email</th>
+                </tr>
+                <tr ng-repeat="p in PeopleData">
+                    <td>{{p.Name}}</td>
+                    <td>{{p.City}}</td>
+                    <td>{{p.Email}}</td>
+                    <td><button class="btn btn-danger btn-xs" ng-click="DeletePeople(p)">Remove</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
