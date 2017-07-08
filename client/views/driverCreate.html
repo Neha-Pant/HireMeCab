@@ -30,4 +30,33 @@
             </form>
         </div>
     </div>
+
+     <div class="row">
+   <div class="col-md-12">
+    <table class="table table-bordered table-hover">
+      <tr>
+        <th>RegNo</th>
+        <th>LicenseNo</th>
+        <th>Address</th>
+        <th>MobileNo</th>
+        <th>Photo</th>
+        <th>Model</th>
+        <th>CabType</th>
+        <th>Make</th>
+        <th>DELETE</th>
+      </tr>
+      <tr ng-repeat="t in driverData">
+        <td>{{t.RegNo}}</td>
+        <td>{{t.LicenseNo}}</td>
+        <td>{{t.Address}}</td>
+        <td>{{t.MobileNo}}</td>
+        <td>{{t.Photo}}</td>
+        <td>{{t.Model}}</td>
+        <td>{{t.CabType}}</td>
+        <td>{{t.Make}}</td>
+        <td><button ng-click="deleteDriver(t)" class="btn btn-danger" onclick="this.parentElement.style.display='none';">DELETE  <span class="glyphicon glyphicon-remove"></span></button></td>
+      </tr>
+    </table>
+
+       </div>
 </div>
