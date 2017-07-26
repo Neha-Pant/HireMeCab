@@ -50,6 +50,39 @@ router.delete('/DeleteDriver/:id', function(req, res) {
     });
 });
 
+router.post('/UpdateDriver/:id/:regno/:licenseno/:address/:mobileno/:photo/:model/:cabtype/:make', function(req, res) {
+    Driver.remove({
+        '_id': req.params.id
+    }, function(err) {
+        if (err) {
+        //   throw err;
+        } else {
+            res.json({
+                success: true
+            });
+            console.log('Deleted');
+        }
+    }); 
+    newDriver = new Driver();
+    newDriver.RegNo = req.params.regno;
+    newDriver.LicenseNo = req.params.licenseno;
+    newDriver.Address = req.params.address;
+    newDriver.MobileNo = req.params.mobileno;
+    newDriver.Photo = req.params.photo;
+    newDriver.Model = req.params.model;
+    newDriver.CabType = req.params.cabtype;
+    newDriver.Make = req.params.make;
+    newDriver.save(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            // res.json({
+            //     success: true
+            // });
+            console.log('Data Saved !');
+        }
+    });
+});
 
 
 module.exports = router;

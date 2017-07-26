@@ -15,6 +15,12 @@ angular.module('meanApp').controller('driverController', function($scope, $http)
         });
     }
 
+$scope.UpdateDriver = function(user,t){
+      $http.post('/dapi/UpdateDriver/'+t._id+'/'+user.RegNo+'/'+user.LicenseNo+'/'+user.Address+'/'+user.MobileNo+'/'+user.Photo+'/'+user.Model+'/'+user.CabType+'/'+user.Make).then(function (response) 
+      { });
+        window.location.reload();  
+  }
+    $scope.init();
 
 
 

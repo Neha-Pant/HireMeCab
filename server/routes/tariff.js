@@ -47,6 +47,36 @@ router.delete('/DeleteTariff/:id', function(req, res) {
     });
 });
 
+router.post('/UpdateTariff/:id/:cabtype/:startpeakhour/:endpeakhour/:normalrate/:peakrate', function(req, res) {
+    Tariff.remove({
+        '_id': req.params.id
+    }, function(err) {
+        if (err) {
+        //   throw err;
+        } else {
+            res.json({
+                success: true
+            });
+            console.log('Deleted');
+        }
+    }); 
+    newTariff = new Tariff();
+    newTariff.CabType = req.params.cabtype;
+    newTariff.StartPeakHour = req.params.startpeakhour;
+    newTariff.EndPeakHour = req.params.endpeakhour;
+    newTariff.NormalRate = req.params.normalrate;
+    newTariff.PeakRate = req.params.peakrate;
+    newTariff.save(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            // res.json({
+            //     success: true
+            // });
+            console.log('Data Saved !');
+        }
+    });
+});
 
 
 module.exports = router;

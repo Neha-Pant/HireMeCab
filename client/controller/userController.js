@@ -30,5 +30,12 @@ angular.module('meanApp').controller('userController', function($scope, $http)
   }
     $scope.init();
 
+  $scope.UpdateUser = function(user,t){
+      $http.post('/uapi/UpdatePeople/'+t._id+'/'+user.Name+'/'+user.City+'/'+user.Email).then(function (response) 
+      { });
+        window.location.reload();  
+  }
+    $scope.init();
+
 
 });

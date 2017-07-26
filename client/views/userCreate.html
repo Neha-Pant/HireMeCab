@@ -49,17 +49,20 @@ padding:10px;
      <div class="row">
    <div class="col-md-12">
     <table class="table table-bordered table-hover">
-      <tr>
+      <tr>  
         <th>NAME</th>
         <th>CITY</th>
         <th>EMAIL</th>
-        <th>DELETE</th>
+        <th colspan="2">Operations</th>
       </tr>
       <tr ng-repeat="t in userData">
-        <td>{{t.Name}}</td>
-        <td>{{t.City}}</td>
-        <td>{{t.Email}}</td>
+          <form>
+        <td><input type="text" placeholder="Name" ng-model="NewUser.Name"></input>{{t.Name}}</td>
+        <td><input type="text" placeholder="City" ng-model="NewUser.City"></input>{{t.City}}</td>
+        <td><input type="text" placeholder="Email" ng-model="NewUser.Email"></input>{{t.Email}}</td>
         <td><button ng-click="DeleteUser(t)" class="btn btn-danger" onclick="this.parentElement.style.display='none';">DELETE  <span class="glyphicon glyphicon-remove"></span></button></td>
+        <td><button type="button" ng-click="UpdateUser(NewUser,t)" class="btn btn-danger">UPDATE</button></td>
+        </form>
       </tr>
     </table>
 

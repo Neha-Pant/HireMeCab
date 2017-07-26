@@ -21,4 +21,31 @@
             </form>
         </div>
     </div>
+
+     <div class="row">
+   <div class="col-md-12">
+    <table class="table table-bordered table-hover">
+      <tr>  
+        <th>CabType</th>
+        <th>StartPeakHour</th>
+        <th>EndPeakHour</th>
+        <th>NormalRate</th>
+        <th>PeakRate</th>
+        <th colspan="2">Operations</th>
+      </tr>
+      <tr ng-repeat="t in tariffData">
+          <form>
+        <td><input type="text" placeholder="CabType" ng-model="NewTariff.CabType"></input>{{t.CabType}}</td>
+        <td><input type="text" placeholder="StartPeakHour" ng-model="NewTariff.StartPeakHour"></input>{{t.StartPeakHour}}</td>
+        <td><input type="text" placeholder="EndPeakHour" ng-model="NewTariff.EndPeakHour"></input>{{t.EndPeakHour}}</td>
+        <td><input type="text" placeholder="NormalRate" ng-model="NewTariff.NormalRate"></input>{{t.NormalRate}}</td>
+        <td><input type="text" placeholder="PeakRate" ng-model="NewTariff.PeakRate"></input>{{t.PeakRate}}</td>
+        <td><button ng-click="DeleteTariff(t)" class="btn btn-danger" onclick="this.parentElement.style.display='none';">DELETE  <span class="glyphicon glyphicon-remove"></span></button></td>
+        <td><button type="button" ng-click="UpdateTariff(NewTariff,t)" class="btn btn-danger">UPDATE</button></td>
+        </form>
+      </tr>
+    </table>
+
+       </div>
+    </div>
 </div>
