@@ -8,14 +8,46 @@
     <title>MEAN App</title>
     <script src="./public/js/angular.min.js"></script>
     <script src="./public/js/angular-route.min.js"></script>
-    <link rel="stylesheet" href="./public/css/bootstrap.min.css" />
+<script src="./public/js/angular-cookies.min.js"></script>
+  <script src="./public/js/ngStorage.min.js"></script>
+
     <script src="./app.js"></script>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWGdlQ1x8H__AshOpz15pgp0_t7_boeUY&libraries=places"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!--my key-->
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb6_ow0F-8NePhBHTHJmBjczzwXZS1AI8"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="./public/js/jquery.js"></script>
+ <script type="text/javascript" src="./public/js/moment.js"></script>
+
+ <!--<link rel="stylesheet" href="./public/css/jquery.datepick.css" />
+ <script src="./public/js/jquery.plugin.min.js"></script>
+ <script src="./public/js/jquery.datepick.js"></script>-->
+
+<!--date picker-->
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script src="http://rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js"></script>-->
+
+    <link rel="stylesheet" href="./public/css/bootstrap.min.css" />
+
+   
+
+
+    
     <script src="./controller/userController.js"></script>
+    <script src="./controller/loginController.js"></script>
     <script src="./controller/homeController.js"></script>
     <script src="./controller/driverController.js"></script>
     <script src="./controller/tariffController.js"></script>
+    <script src="./controller/bookCabController.js"></script>
+    <script src="./service/Authentication.js"></script>
 </head>
-
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -27,17 +59,28 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="#">
+                    HIREMECAB<!--<img src="hiremecar.png" style="display:inline"/>-->
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#/">Home <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#/createU">Create User</a></li>
-                    <li><a href="#/createD">Create Driver</a></li>
-                    <li><a href="#/createT">Create Tariff</a></li>
+                    <!--<li><a href="#/user">Register</a></li>-->
+                    <li><a href="#/driver" ng-hide="adminCheck">Create Driver</a></li>
+                    <li><a href="#/tariff" ng-hide="adminCheck">Create Tariff</a></li>
+                    <li><a href="#/rides" ng-hide="userCheck">My Rides</a></li>
+      <li><a href="#/admin" ng-hide="adminCheck">Admin</a></li>
+      <li><a href="#/booking" ng-hide="driverCheck">My Bookings</a></li>
                 </ul>
-
+    <ul class="nav navbar-nav navbar-right">
+      <li><a><span ng-hide="check">Hi {{LoginName.currentUser.userInfo.email}}</span></a></li>
+      <li><a href="#/user" ng-show="check"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#/login" ng-show="check"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="#/changePassword" ng-hide="check"><span class="glyphicon glyphicon-lock"></span> Change Password</a></li>
+      <li><a href="#/login" ng-hide="check"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -46,6 +89,25 @@
     <div ng-view>
 
     </div>
+
+    <center><nav class="navbar navbar-default">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <table>
+                <tr><td><ul class="nav navbar-nav">
+                    <li>
+                        <a href="#/" style="display:inline">Home</a>|
+                    <a href="#/user" style="display:inline">Register</a>|
+                    <a href="#/driver" style="display:inline">Driver</a>|
+                    <a href="#/tariff" style="display:inline">Tariff</a>|
+                    <a href="#/bookCab" style="display:inline">Book Cab</a></li>
+                </ul></td></tr>
+                <tr><td>© 2017 A NIIT LTD. - All Rights Reserved.</td></tr>
+            </table>
+            </div>
+            <!-- /.navbar-collapse -->
+        <!-- /.container-fluid -->
+    </nav></center>
 </body>
 
 </html>

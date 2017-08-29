@@ -30,22 +30,37 @@ padding:10px;
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 well col-md-offset-4">
             <form>
+                <div class="form-group">
+                    <img src="\public\images\register.jpg" height="100pt" width="100%" alt="register"/>
+                </div>
                 <div class="form-group">
                     <input type="text" placeholder="Name" ng-model="User.Name" class="form-control" />
                 </div>
                 <div class="form-group">
-                   <input type="text" placeholder="City" ng-model="User.City" class="form-control" />
+                   <input type="text" placeholder="Address" ng-model="User.Address" class="form-control" />
                 </div>
                 <div class="form-group">
                     <input type="text" ng-model="User.Email" placeholder="Email" class="form-control" />
                 </div>
-                <button type="button" ng-click="SaveUser()" class="btn btn-success">Submit</button>
+                <div class="form-group">
+                    <input type="text" ng-model="User.Password" placeholder="Password" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Confirm Password" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="text" ng-model="User.Phone" placeholder="Phone" class="form-control" />
+                </div>
+                <div class="form-group">
+                <center><button type="button" ng-click="SaveUser()" class="btn btn-success">Register</button></center>
+                </div>
             </form>
         </div>
     </div>
 
+<!--
      <div class="row">
    <div class="col-md-12">
     <table class="table table-bordered table-hover">
@@ -68,4 +83,4 @@ padding:10px;
 
        </div>
     </div>
-</div>
+</div>-->

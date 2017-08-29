@@ -31,6 +31,11 @@ router.get('/GetTariff', function(req, res) {
     });
 });
 
+router.get('/GetSTariff/:t', function (req, res) {
+    Tariff.find({CabType:req.params.t}, function (err, docs) {
+    res.json(docs);
+    });
+});
 
 router.delete('/DeleteTariff/:id', function(req, res) {
     Tariff.remove({
