@@ -35,6 +35,7 @@
     <script src="http://rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js"></script>-->
 
     <link rel="stylesheet" href="./public/css/bootstrap.min.css" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 
    
 
@@ -67,18 +68,18 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav nav-tabs ">
                     <li class="active"><a href="#/">Home <span class="sr-only">(current)</span></a></li>
-                    <!--<li><a href="#/user">Register</a></li>-->
-                    <li><a href="#/driver" ng-hide="adminCheck">Create Driver</a></li>
-                    <li><a href="#/tariff" ng-hide="adminCheck">Create Tariff</a></li>
-                    <li><a href="#/rides" ng-hide="userCheck">My Rides</a></li>
-      <li><a href="#/admin" ng-hide="adminCheck">Admin</a></li>
-      <li><a href="#/booking" ng-hide="driverCheck">My Bookings</a></li>
+                
+                    <!--<li><a href="#/driver" ng-hide="adminCheck">Create Driver</a></li>
+                    <li><a href="#/tariff" ng-hide="adminCheck">Create Tariff</a></li>-->
+                    <li><a href="#/rides" ng-hide="userCheck"><span class="glyphicon glyphicon-send"></span> My Rides</a></li>
+      <li><a href="#/admin" ng-hide="adminCheck"><span class="glyphicon glyphicon-wrench"></span> Admin</a></li>
+      <li><a href="#/booking" ng-hide="driverCheck"><span class="glyphicon glyphicon-tasks"></span> My Bookings</a></li>
                 </ul>
     <ul class="nav navbar-nav nav-tabs navbar-right">
-      <li><a><span ng-hide="check">Hi {{LoginName.currentUser.userInfo.email}}</span></a></li>
+      <li><a><span ng-hide="check"><span class="glyphicon glyphicon-lock"></span>  Hi {{LoginName.currentUser.userInfo.email}}</span></a></li>
       <li><a href="#/user" ng-show="check"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="#/login" ng-show="check"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      <li><a href="#/changePassword" ng-hide="check"><span class="glyphicon glyphicon-lock"></span> Change Password</a></li>
+      <li><a href="#/changePassword" ng-hide="check"><span class="glyphicon glyphicon-cog"></span> Change Password</a></li>
       <li><a href="#/login" ng-hide="check"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
             </div>
@@ -94,20 +95,22 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <table>
-                <tr><td><ul class="nav navbar-nav">
+                <!--<tr><td><ul class="nav navbar-nav">
                     <li>
                         <a href="#/" style="display:inline">Home</a>|
                     <a href="#/user" style="display:inline">Register</a>|
                     <a href="#/driver" style="display:inline">Driver</a>|
                     <a href="#/tariff" style="display:inline">Tariff</a>|
                     <a href="#/bookCab" style="display:inline">Book Cab</a></li>
-                </ul></td></tr>
+                </ul></td></tr>-->
                 <tr><td>© 2017 A NIIT LTD. - All Rights Reserved.</td></tr>
             </table>
             </div>
             <!-- /.navbar-collapse -->
         <!-- /.container-fluid -->
     </nav></center>
+
+
 </body>
 
 </html>
