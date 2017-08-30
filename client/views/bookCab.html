@@ -7,6 +7,7 @@
         width:100%;
       }
     </style>
+    <div class="row">
      <form class="form-horizontal" role="form">
           <div class="form-group">
             <label for="origin" class="col-sm-2 control-label">Origin</label>
@@ -26,13 +27,35 @@
             </div>
           </div>
         </form>
-
+    </div>
+    <br/>
+    <div class="row" height="80%">
+    
+    <div class="col-md-6 col-md-offset-1">
     <div id="map_canvas"></div>
+    </div>
+
+<div class="col-md-4">
+  <input type="text" id="distance" ng-model="distance" readonly="true" />
+  <input type="text" id="time" ng-model="time" readonly="true" />
+  <br/><hr/><br/><input type="text" id="dt1" ng-model="dt1"/>
+  <input type="time" id="timeR" ng-model="timeR"/>
+<select id="type" ng-model="type" name="type">
+<option value="micro" selected="true">Micro</option>
+<option value="mini">Mini</option>
+<option value="xl">XL</option>
+</select>
+<button class="btn btn-primary" ng-click="calcFare()">Calculate Fare</button>
+<input type="number" id="fare" ng-model="fare" readonly="true"/>
+<!--<input type="datetime-local" id="datetimeR"/>-->
+  <input type="number" id="totalFare"  readonly="true" />
+</div>
+
+    </div>
+
 <br/>
-  <div id="directionsList" ng-show="directions.showList" class="panel panel-primary"></div>
-<br/>
-<div class="container">
-  <input type="number" id="distanceKM" ng-model="distance" readonly="true" />
+  <!--<div id="directionsList" ng-show="directions.showList" class="panel panel-primary"></div>
+<br/>-->
   
   <script type="text/javascript">
 //   var today = new Date();
@@ -62,15 +85,3 @@
 <!--<input type="date" id="dateR"/>-->
 <!--<input type="text" id="dt"/>-->
 
-<input type="text" id="dt1" ng-model="dt1"/>
-<input type="time" id="timeR" ng-model="timeR"/>
-<select id="type" ng-model="type" name="type">
-<option value="micro" selected="true">Micro</option>
-<option value="mini">Mini</option>
-<option value="xl">XL</option>
-</select>
-<button class="btn btn-primary" ng-click="calcFare()">Calculate Fare</button>
-<input type="number" id="fare" ng-model="fare" readonly="true"/>
-<!--<input type="datetime-local" id="datetimeR"/>-->
-  <input type="number" id="totalFare"  readonly="true" />
-</div>

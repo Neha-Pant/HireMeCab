@@ -242,9 +242,12 @@ var start = document.getElementById('origin').value;
       directionsDisplay.setDirections(result);
       console.log(result);
         directionsDisplay.setPanel(document.getElementById('directionsList'));
-       $scope.distance = result.routes[0].legs[0].distance.value / 1000;                 
+        $('#distance').html(result.routes[0].legs[0].distance.value / 1000); 
+
+       $('#time').html(result.routes[0].legs[0].duration.text);                
         $scope.directions.showList = true;
         console.log('Distance : '+result.routes[0].legs[0].distance.value / 1000);
+        console.log('Time : '+result.routes[0].legs[0].duration.text);
         //$scope.distance = result.routes[0].legs[0].distance.value / 1000;                 
                
               //  price.value = distanceInput.value * 30;
