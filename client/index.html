@@ -65,7 +65,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav nav-tabs ">
                     <li class="active"><a href="#/">Home <span class="sr-only">(current)</span></a></li>
                     <!--<li><a href="#/user">Register</a></li>-->
                     <li><a href="#/driver" ng-hide="adminCheck">Create Driver</a></li>
@@ -74,7 +74,7 @@
       <li><a href="#/admin" ng-hide="adminCheck">Admin</a></li>
       <li><a href="#/booking" ng-hide="driverCheck">My Bookings</a></li>
                 </ul>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav nav-tabs navbar-right">
       <li><a><span ng-hide="check">Hi {{LoginName.currentUser.userInfo.email}}</span></a></li>
       <li><a href="#/user" ng-show="check"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="#/login" ng-show="check"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

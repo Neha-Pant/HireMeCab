@@ -25,6 +25,9 @@ app.config(function($routeProvider,$locationProvider) {
     }).when('/tariff', {
         templateUrl: './views/tariffCreate.html',
         controller: 'tariffController'
+    }).when('/tariffV', {
+        templateUrl: './views/tariffView.html',
+        controller: 'tariffController'
     }).when('/bookCab', {
         templateUrl: './views/bookCab.html',
          controller: 'bookCabController'

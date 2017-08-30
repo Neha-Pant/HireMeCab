@@ -1,6 +1,18 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+
+     <div class="col-md-3">
+      <ul class="nav nav-pills nav-stacked">
+        <img src="\public\images\admin.png" height="100px" width="100%" alt="admin">            
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#/driverV">View Driver Data</a></li>
+        <li><a href="#/driver">Add Driver Data</a></li>
+        <li><a href="#/tariffV">View Tariff Data</a></li>
+        <li><a href="#/tariff">Add Tariff Data</a></li>
+      </ul>
+    </div>
+
+        <div class="col-md-9">
             <form>
                  <div class="form-group">
                     <input type="text" placeholder="Name" ng-model="Driver.Name" class="form-control" />
