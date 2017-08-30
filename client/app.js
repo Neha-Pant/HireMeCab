@@ -16,6 +16,12 @@ app.config(function($routeProvider,$locationProvider) {
     }).when('/driver', {
         templateUrl: './views/driverCreate.html',
         controller: 'driverController'
+    }).when('/driverV', {
+        templateUrl: './views/driverView.html',
+        controller: 'driverController'
+    }).when('/booking', {
+        templateUrl: './views/booking.html'
+        //controller: 'driverController'
     }).when('/tariff', {
         templateUrl: './views/tariffCreate.html',
         controller: 'tariffController'
@@ -47,17 +53,26 @@ app.run(function($rootScope, $http, $location, $sessionStorage, $cookies) {
         if (restrictedPage && !$sessionStorage.tokenDetails && $location.path() != '') {
             $location.path('/');
         }
-              if (restrictedPage && loggedInUser.role!='Admin' && $location.path()=='/admin') {
+        else
+        {
+              if (restrictedPage && loggedInUser.role!='Admin' && $location.path()=='/admin' ){
               $location.path('/error');
+             }
+             else if (restrictedPage && loggedInUser.role!='Admin' && $location.path()=='/driver' ){
+              $location.path('/error');
+            }
+            else if (restrictedPage && loggedInUser.role!='Admin' && $location.path()=='/driverV' ){
+              $location.path('/error');
+            }
+            else if (restrictedPage && (loggedInUser.role!='Driver') && $location.path()=='/booking') {
+            $location.path('/error');
+            }
+            else if (restrictedPage && loggedInUser.role!='Customer' && $location.path()=='/user') {
+        $location.path('/error');
+            }
+            else
+            {}
         }
-
-        if (restrictedPage && loggedInUser.role!='Driver' && $location.path()=='/driver') {
-        $location.path('/error');
-      }
-
-        if (restrictedPage && loggedInUser.role!='Customer' && $location.path()=='/user') {
-        $location.path('/error');
-  }
         console.log('RestrictedPage '+restrictedPage);
         console.log($sessionStorage.tokenDetails);
     });

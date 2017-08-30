@@ -3,7 +3,7 @@ var driverSchema = mongoose.Schema({
     RegNo: String,
     LicenseNo: String,
     Address: String,
-    MobileNo: String,
+    Phone: String,
     Photo: String,
     Model: String,
     CabType:String,

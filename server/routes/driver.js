@@ -7,7 +7,7 @@ router.post('/AddDriver', function(req, res) {
     newDriver.RegNo = req.body.RegNo;
     newDriver.LicenseNo = req.body.LicenseNo;
     newDriver.Address = req.body.Address;
-    newDriver.MobileNo = req.body.MobileNo;
+    newDriver.Phone = req.body.MobileNo;
     newDriver.Photo = req.body.Photo;
     newDriver.Model = req.body.Model;
     newDriver.CabType = req.body.CabType;

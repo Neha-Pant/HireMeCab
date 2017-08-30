@@ -24,6 +24,27 @@ router.post('/AddPeople', function(req, res) {
         }
     });
 });
+router.post('/AddDriver', function(req, res) {
+    newPeople = new User();
+    newPeople.Name = req.body.Name;
+    newPeople.Address = req.body.Address;
+    newPeople.Email = req.body.Email;
+    newPeople.Password=newPeople.generateHash(req.body.Password);
+    newPeople.Phone=req.body.Phone;
+    newPeople.Role='Driver';
+    newPeople.Status='active';
+    newPeople.save(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({
+                success: true
+            });
+            console.log('Driver Registered Successfully !!!');
+        }
+    });
+});
+
 
 router.post('/login', function(req, res) {
     User.findOne({
