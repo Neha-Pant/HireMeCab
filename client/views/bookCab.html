@@ -21,6 +21,7 @@
               <input type="text" id="destination" class="form-control" ng-model="directions.destination" name="autocomplete"/>
             </div>
           </div>
+          <br/>
             <div class="form-group">
             <div class="col-md-offset-5 col-sm-7">
               <button class="btn btn-primary btn-md" ng-click="getEstimate()">Get Directions</button>
@@ -32,17 +33,18 @@
     <div id="showDur" class="row">
   <table class="col-md-6 col-md-offset-3">
     <tr>
-      <td class="col-md-3 panel panel-info">
+      <td class="col-md-3 panel panel-info panel-heading">
         <div style="font-size:30px" class=" col-md-offset-2 glyphicon glyphicon-road"></div>
         <span class="fontdeco" style="font-size:30px">Distance</span>&nbsp;&nbsp;
         <span id="spanDistance" style="font-size:18px" class="fontdeco badge"></span>
     </td>
 
-    <td class="col-md-3 panel panel-info">
+    <td class="col-md-3 panel panel-info panel-heading">
       <div style="font-size:30px" class=" col-md-offset-2 glyphicon glyphicon-time"></div>
       <span class="fontdeco" style="font-size:30px">Time</span>&nbsp;&nbsp;
        <span id="spanTime" style="font-size:18px" class="fontdeco badge"></span></td>
     </tr>
+
 
   </table>
   <div><br/><br/><br/></div>
@@ -53,6 +55,9 @@
     <div class="row" height="100%">
     
     <div class="col-md-8 col-md-offset-2">
+    <br/>
     <div id="map_canvas"></div>
+<br/><br/>
     </div>
 
+    

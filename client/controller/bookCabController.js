@@ -260,19 +260,19 @@ var myMarker,fare,n,custname,mob,name;
           });
         });
 
-        // var infoWindow = new google.maps.InfoWindow({map: map});
-        //   // infoWindow.setPosition(myLatlng);
-        //   // infoWindow.setContent('you are here.');
-        //   map.setCenter(myLatlng);
+        var infoWindow = new google.maps.InfoWindow({map: map});
+          // infoWindow.setPosition(myLatlng);
+          // infoWindow.setContent('you are here.');
+          map.setCenter(myLatlng);
 
-        //   geocoder.geocode({ 'latLng': myLatlng }, function (results, status) {
-        //       if (status == google.maps.GeocoderStatus.OK) {
-        //             if (results[1]) {
-        //                start=results[1].formatted_address;
-        //                document.getElementById("origin").value=start;
-        //             }
-        //         }
-        //   });
+          geocoder.geocode({ 'latLng': myLatlng }, function (results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                       start=results[1].formatted_address;
+                       document.getElementById("origin").value=start;
+                    }
+                }
+          });
       
 
 
