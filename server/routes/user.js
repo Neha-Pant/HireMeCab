@@ -45,6 +45,19 @@ router.post('/AddDriver', function(req, res) {
     });
 });
 
+router.put('/updatePassword/:email/:newp' , function(req,res)
+{
+   var us = new User();
+    User.findOneAndUpdate({Email:req.params.email},
+    {
+     $set:{Password:us.generateHash(req.params.newp),
+          }
+   },function (err, docs) {
+   res.json(docs);
+   console.log('Alter password api .');
+   console.log(docs);
+  });
+});
 
 router.post('/login', function(req, res) {
     User.findOne({
@@ -76,6 +89,21 @@ router.post('/login', function(req, res) {
             });
             console.log('token is '+token);
             console.log('Token Created');
+        }
+    });
+});
+
+router.delete('/DeleteUserD/:phone', function(req, res) {
+    User.remove({
+        'Phone': req.params.phone
+    }, function(err) {
+        if (err) {
+            throw err;
+        } else {
+            res.json({
+                success: true
+            });
+            console.log('Deleted');
         }
     });
 });

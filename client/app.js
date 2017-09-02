@@ -13,6 +13,9 @@ app.config(function($routeProvider,$locationProvider) {
     }).when('/admin', {
         templateUrl: './views/admin.html'
         // controller: 'adminController'
+    }).when('/changePassword', {
+        templateUrl: './views/changePassword.html',
+        controller: 'userController'
     }).when('/driver', {
         templateUrl: './views/driverCreate.html',
         controller: 'driverController'

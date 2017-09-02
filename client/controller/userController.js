@@ -20,6 +20,20 @@ angular.module('meanApp').controller('userController', function($scope, $http,$l
       $location.path('/login');
     }
 
+  $scope.ChangePassword= function(){
+
+      $http.put('/uapi/updatePassword/'+$scope.User.Email+'/'+$scope.User.NPassword).then(function (response) {
+        if(response)
+        {
+          alert('Password changed Successfully!');
+          // $scope.usr='';
+        }
+        $location.path('/login');
+      });
+  };
+
+
+
   //   $scope.DeleteUser = function(user){
   //   var x=confirm("Are you sure you want to delete ?");
   //   if(x){

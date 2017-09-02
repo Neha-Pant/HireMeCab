@@ -7,8 +7,8 @@ router.post('/AddDriver', function(req, res) {
     newDriver.RegNo = req.body.RegNo;
     newDriver.LicenseNo = req.body.LicenseNo;
     newDriver.Address = req.body.Address;
-    newDriver.Phone = req.body.MobileNo;
-    newDriver.Photo = req.body.Photo;
+    newDriver.Phone = req.body.Phone;
+   // newDriver.Photo = req.body.Photo;
     newDriver.Model = req.body.Model;
     newDriver.CabType = req.body.CabType;
     newDriver.Make = req.body.Make;
@@ -24,20 +24,62 @@ router.post('/AddDriver', function(req, res) {
     });
 });
 
-router.get('/GetDriver', function(req, res) {
-    Driver.find({}, function(err, data) {
-        if (err) {
-            throw err;
-        } else {
-            res.json(data);
-        }
-    });
-});
+// router.get('/GetDriver', function(req, res) {
+//     Driver.find({}, function(err, data) {
+//         if (err) {
+//             throw err;
+//         } else {
+//             res.json(data);
+//         }
+//     });
+// });
 
 
-router.delete('/DeleteDriver/:id', function(req, res) {
+router.get('/GetAllDrivers',function(req,res){
+  Driver.aggregate([{
+          $lookup: {
+              from: "users",
+              localField: "Phone",
+              foreignField: "Phone",
+              as: "Cab"
+          }
+      }, {
+          $match: {
+              "Cab": {
+                  $ne: []
+              }
+          }
+      }]).exec().then(function(data) {
+          res.json(data);
+      });
+   });
+
+   router.get('/getDriverById/:Phone',function(req,res){
+       Driver.aggregate([
+       { $match: {
+           Phone: req.params.Phone
+       }},{
+             $lookup: {
+                 from: "users",
+                 localField: "Phone",
+                 foreignField: "Phone",
+                 as: "User"
+             }
+         }, {
+             $match: {
+                 "User": {
+                     $ne: []
+                 }
+             }
+         }]).exec().then(function(data) {
+           console.log(data);
+             res.json(data);
+         });
+      });
+
+router.delete('/DeleteDriver/:phone', function(req, res) {
     Driver.remove({
-        '_id': req.params.id
+        'Phone': req.params.phone
     }, function(err) {
         if (err) {
             throw err;

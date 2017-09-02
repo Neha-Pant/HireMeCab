@@ -19,7 +19,7 @@
         <th>LicenseNo</th>
         <th>Address</th>
         <th>MobileNo</th>
-        <th>Photo</th>
+        <!--<th>Photo</th>-->
         <th>Model</th>
         <th>CabType</th>
         <th>Make</th>
@@ -30,12 +30,12 @@
         <td><input type="text" placeholder="RegNo" ng-model="NewDriver.RegNo"></input>{{t.RegNo}}</td>
         <td><input type="text" placeholder="LicenseNo" ng-model="NewDriver.LicenseNo"></input>{{t.LicenseNo}}</td>
         <td><input type="text" placeholder="Address" ng-model="NewDriver.Address"></input>{{t.Address}}</td>
-        <td><input type="text" placeholder="Phone" ng-model="NewDriver.MobileNo"></input>{{t.MobileNo}}</td>
-        <td><input type="text" placeholder="Photo" ng-model="NewDriver.Photo"></input>{{t.Photo}}</td>
+        <td><input type="text" placeholder="Phone" ng-model="NewDriver.MobileNo"></input>{{t.Phone}}</td>
+        <!--<td><input type="text" placeholder="Photo" ng-model="NewDriver.Photo"></input>{{t.Photo}}</td>-->
         <td><input type="text" placeholder="Model" ng-model="NewDriver.Model"></input>{{t.Model}}</td>
         <td><input type="text" placeholder="CabType" ng-model="NewDriver.CabType"></input>{{t.CabType}}</td>
         <td><input type="text" placeholder="Make" ng-model="NewDriver.Make"></input>{{t.Make}}</td>
-        <td><button ng-click="deleteDriver(t)" class="btn btn-danger" onclick="this.parentElement.style.display='none';">DELETE  <span class="glyphicon glyphicon-remove"></span></button></td>
+        <td><button ng-click="DeleteDriver(t)" class="btn btn-danger" onclick="this.parentElement.style.display='none';">DELETE  <span class="glyphicon glyphicon-remove"></span></button></td>
         <td><button type="button" ng-click="UpdateDriver(NewDriver,t)" class="btn btn-danger">UPDATE</button></td>
           </form>
       </tr>
