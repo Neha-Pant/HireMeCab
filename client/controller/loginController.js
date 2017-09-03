@@ -14,7 +14,7 @@ angular.module('meanApp').controller('loginController', function($scope, $http, 
                   $rootScope.adminCheck=false;
                   }
                   if (response.data.success === true && response.data.userDetail.Role=='Driver') {
-                    $location.path('/booking');
+                    $location.path('/driverH');
                     $rootScope.LoginName=$cookies.getObject('authUser');
                     $rootScope.check=false;
                     $rootScope.driverCheck=false;

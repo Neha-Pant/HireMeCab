@@ -22,6 +22,9 @@ app.config(function($routeProvider,$locationProvider) {
     }).when('/driverV', {
         templateUrl: './views/driverView.html',
         controller: 'driverController'
+    }).when('/driverH', {
+        templateUrl: './views/driver.html',
+        controller: 'driverController'
     }).when('/booking', {
         templateUrl: './views/booking.html'
         //controller: 'driverController'

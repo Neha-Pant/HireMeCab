@@ -1,35 +1,22 @@
-angular.module('meanApp').controller('bookCabController',function($scope, $http,$rootScope,$location,$cookies,modalProvider)
+angular.module('meanApp').controller('bookCabController',function($scope,$http,$rootScope,$location,$cookies,modalProvider)
 {
 var allMyMarkers = [];
 var myMarker,fare,n,custname,mob,name;
-// $(document).ready(function(){
-//   name=$cookies.getObject('authUser');
-//   custname=name.currentUser.userInfo.fname;
-//   mob=name.currentUser.userInfo.mobile;
-//   console.log(custname);
-//   console.log(mob);
-//  var today=new Date();
-//   $('#timepicker').timepicki();
-//   $( "#datepicker").datepicker({
-//     minDate: new Date(today),
-//     maxDate: new Date(today.setDate(today.getDate() + 1))
-//   });
-//   $('#showDur').hide();   
-// });
 
-// $(document).ready(function(){
-// var date=new Date();
-// var hours = date.getHours();
-// var minutes = date.getMinutes();
-// var ampm = hours >= 12 ? 'PM' : 'AM';
-// hours = hours % 12;
-// hours = hours ? hours : 12; // the hour '0' should be '12'
-// hours = hours < 10 ? '0'+hours : hours;
-// minutes = minutes < 10 ? '0'+minutes : minutes;
-// var strTime = hours + ':' + minutes + +' '+ampm;
-// $rootScope.bookNow=strTime;
-// console.log($rootScope.bookNow);
-
+$(document).ready(function(){
+  name=$cookies.getObject('authUser');
+  custname=name.currentUser.userInfo.fname;
+  mob=name.currentUser.userInfo.mobile;
+  console.log(custname);
+  console.log(mob);
+ var today=new Date();
+  $('#timepicker').timepicki();
+  $( "#datepicker").datepicker({
+    minDate: new Date(today),
+    maxDate: new Date(today.setDate(today.getDate() + 1))
+  });
+  $('#showDur').hide();   
+});
 
 // $http.get('/bookingapi/GetAllRides/'+mob).then(function (response) {
 //   if(response){
@@ -44,168 +31,123 @@ var myMarker,fare,n,custname,mob,name;
 
 // });
 
-// var socket=io.connect();
-// socket = io.connect('http://localhost:4000', {reconnect: false});
-//   socket.on('NewMessage', function(data) {
-//   if(data.message.driverArray.length>0){
-//   var DriverLoc=data.message.driverlocation;
-//   console.log(DriverLoc);
-//   driverAddress = DriverLoc
-//   geocoder = new google.maps.Geocoder();
-//   if (geocoder) {
-//   geocoder.geocode({
-//           'address': driverAddress
-//       }, function (results, status) {
-//           if (status == google.maps.GeocoderStatus.OK) {
-//             var latitude = results[0].geometry.location.lat();
-//             var longitude = results[0].geometry.location.lng();
-//             var driverLatlng = new google.maps.LatLng(latitude, longitude);
-//             myMarker=  new google.maps.Marker({
-//             position: driverLatlng,
-//             map: map,
-//             icon: '../public/Img/car_ic.png',
-//             store_id: data.message.driverId,
-//             });
-//             allMyMarkers.push( myMarker );
-//           }
-//       });
-//   }
+var socket=io.connect();
+socket = io.connect('http://localhost:3000', {reconnect: false});
+  socket.on('NewMessage', function(data) {
+  if(data.message.driverArray.length>0){
+  var DriverLoc=data.message.driverlocation;
+  console.log(DriverLoc);
+  driverAddress = DriverLoc
+  geocoder = new google.maps.Geocoder();
+  if (geocoder) {
+  geocoder.geocode({
+          'address': driverAddress
+      }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var latitude = results[0].geometry.location.lat();
+            var longitude = results[0].geometry.location.lng();
+            var driverLatlng = new google.maps.LatLng(latitude, longitude);
+            myMarker=  new google.maps.Marker({
+            position: driverLatlng,
+            map: map,
+            icon: '../public/Img/car_ic.png',
+            store_id: data.message.driverId,
+            });
+            allMyMarkers.push( myMarker );
+          }
+      });
+  }
 
-// }
-// else{
-//   console.log('no cabs');
-//     }
-//   });
+}
+else{
+  console.log('no cabs');
+    }
+  });
 
-//   socket.on('MyDriver', function(data) {
+  socket.on('MyDriver', function(data) {
 
-//   $scope.DriverData=data.msg,
-//   $scope.DriverName=data.msg.driverName;
-//   $scope.DriverMobile=data.msg.mobi;
-//   $scope.DriverCarN=data.msg.carn;
-//   $scope.DriverCar=data.msg.cart;
-//     });
+  $scope.DriverData=data.msg,
+  $scope.DriverName=data.msg.driverName;
+  $scope.DriverMobile=data.msg.mobi;
+  $scope.DriverCarN=data.msg.carn;
+  $scope.DriverCar=data.msg.cart;
+    });
 
-//   socket.on('DriverArr', function(data) {
-//   console.log(data.description);
-//   for (var i = 0; i <= data.description.Arr.length; i++) {
-//     if (data.description.Arr[i] === data.description.driverId) {
-//         console.log('yes still there');
-//     }
-//     else {
-//       $scope.DriverData=null;
-//       $scope.DriverName=null;
-//       $scope.DriverMobile=null;
-//       $scope.DriverCarN=null;
-//       $scope.DriverCar=null;
-//         for(var i=0;i<allMyMarkers.length;i++){
-//         if(allMyMarkers[i].store_id === data.description.driverId){
-//          allMyMarkers[i].setMap(null);
-//          break;
-//         }
-//        }
-//     }
-//   }
-//       });
-
-// $scope.getFare=function()
-// {
-//   var sel;
-//   var pr=document.getElementsByName("optradio");
-//   for(i=0;i<pr.length;i++)
-//   {
-//     if(pr[i].checked)
-//     {
-//       sel=pr[i].value;
-//     }
-//   }
-
-//   $http.get('/tariffapi/GetSelectedPlan/'+sel).then(function (response) {
-//   $rootScope.currPlan=response.data;
-
-//       if(response.length!=0){
-
-//         $rootScope.SelCurrCar=$rootScope.currPlan[0].Category;
-//         $rootScope.BaseCurrAmt=$rootScope.currPlan[0].BaseFare;
-//         $rootScope.PeakCurrAmt=$rootScope.currPlan[0].PeakFare;
-//         $rootScope.DistCurrAmt=$rootScope.currPlan[0].DistanceFare;
-//         $rootScope.RideCurrAmt=$rootScope.currPlan[0].RideTimeFare;
-
-//         if($rootScope.bookNow>=$rootScope.currPlan[0].StartPeakTime && $rootScope.bookNow<=$rootScope.currPlan[0].EndPeakTime)
-//         {
-//           console.log('current time inside peak hour');
-//           $rootScope.Fare=($rootScope.BaseCurrAmt+($rootScope.DistCurrAmt*$rootScope.di)+($rootScope.RideCurrAmt*$rootScope.tym1))*$rootScope.PeakCurrAmt;
-//         }
-//         else {
-//           console.log('current time inside non peak hour');
-//           $rootScope.Fare=$rootScope.BaseCurrAmt+($rootScope.DistCurrAmt*$rootScope.di)+($rootScope.RideCurrAmt*$rootScope.tym1);
-//             }
-//             fare=$rootScope.Fare;
-//             console.log(fare);
-//       }
-//       else {
-//         alert('no tariff');
-//       }
-//         console.log(fare);
-
-//     });
-//     $("#myFareModal").modal();
-// }
+  socket.on('DriverArr', function(data) {
+  console.log(data.description);
+  for (var i = 0; i <= data.description.Arr.length; i++) {
+    if (data.description.Arr[i] === data.description.driverId) {
+        console.log('yes still there');
+    }
+    else {
+      $scope.DriverData=null;
+      $scope.DriverName=null;
+      $scope.DriverMobile=null;
+      $scope.DriverCarN=null;
+      $scope.DriverCar=null;
+        for(var i=0;i<allMyMarkers.length;i++){
+        if(allMyMarkers[i].store_id === data.description.driverId){
+         allMyMarkers[i].setMap(null);
+         break;
+        }
+       }
+    }
+  }
+      });
 
 
-// $scope.sendDetails=function(){
-//   console.log(start);
-//   var end=$('#destination').val();
-//   console.log(end);
+$scope.sendDetails=function(){
+  console.log(start);
+  var end=$('#destination').val();
+  console.log(end);
 
-//   var BookingDetails={
-//   startP : start,
-//   endP : end,
-//   cust: custname,
-//   mobi:mob,
-//   Fare:fare
-//   };
+  var Booking={
+  startP : start,
+  endP : end,
+  cust: custname,
+  mobi:mob,
+  Fare:fare
+  };
 
-// socket.emit('BookDetail', {
-//      All: BookingDetails
-//     });
-//     $('#myFareModal').modal('hide');
+socket.emit('BookDetail', {
+     All: Booking
+    });
+    $('#myFareModal').modal('hide');
 
-//       $scope.Booking={
-//       User:name.currentUser.userInfo,
-//       StartPoint:start,
-//       EndPoint:end,
-//       BookingDate:$rootScope.bookDate,
-//       BookingTime:$rootScope.bookTime,
-//       Distance:$rootScope.di,
-//       Time:$rootScope.tym,
-//       Amount:$rootScope.Fare,
-//       BookingType:'Current',
-//       CabCategory:$rootScope.SelCurrCar,
-//       DriverDetails:$scope.DriverData
-//     }
-// if(($scope.Booking.BookingType=='Current') && ($scope.Booking.DriverDetails==null))
-// {
-// alert('sorry no cabs available');
-// }
-// else{
-//   $http.post('/bookingapi/AddBooking/',$scope.Booking).then(function(response){
-//     console.log('Data of confirmBooking submitted successfully');
-//   });
-//     $('#myfinalModal').modal('show');
-//     $('#myfinalModal').on('hidden.bs.modal', function (e) {
+      $scope.Booking={
+      User:name.currentUser.userInfo,
+      StartPoint:start,
+      EndPoint:end,
+      BookingDate:$rootScope.bookDate,
+      BookingTime:$rootScope.bookTime,
+      Distance:$rootScope.di,
+      Time:$rootScope.tym,
+      Amount:$rootScope.Fare,
+      BookingType:'Current',
+      CabCategory:$rootScope.SelCurrCar,
+      DriverDetails:$scope.DriverData
+    }
+if(($scope.Booking.BookingType=='Current') && ($scope.Booking.DriverDetails==null))
+{
+alert('sorry no cabs available');
+}
+else{
+  $http.post('/bapi/AddBooking/',$scope.Booking).then(function(response){
+    console.log('Data of confirmBooking submitted successfully');
+  });
+    $('#myfinalModal').modal('show');
+    $('#myfinalModal').on('hidden.bs.modal', function (e) {
 
-//   });
-// }
+  });
+}
+n = fare.toFixed(2);
+document.getElementById('mon').innerHTML=n;
+document.getElementById('st').innerHTML=start;
+document.getElementById('en').innerHTML=end;
+// modalProvider.openPopupModal();
+}
 
 
-
-// n = fare.toFixed(2);
-// document.getElementById('mon').innerHTML=n;
-// document.getElementById('st').innerHTML=start;
-// document.getElementById('en').innerHTML=end;
-// // modalProvider.openPopupModal();
-// }
 
 $(document).ready(function(){
 var date=new Date();
