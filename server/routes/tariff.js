@@ -31,6 +31,19 @@ router.get('/GetTariff', function(req, res) {
     });
 });
 
+router.get('/GetSelectedPlan/:m',function (req, res) {
+
+  Tariff.find({CabType:req.params.m},function(err,Data){
+  if(err)
+  {
+    return res.send(err);
+  }
+  res.send(Data);
+  console.log(Data);
+});
+});
+
+
 router.get('/getTariffById/:id',function(req,res){
     console.log(req.params.id);
   Tariff.findById(req.params.id, function (err, docs) {

@@ -71,7 +71,12 @@
                     <input type="text" ng-model="getDriver[0].Model" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <input type="text" ng-model="getDriver[0].CabType" class="form-control" />
+                    <select ng-model="getDriver[0].CabType" id="catCab" class="form-control">
+                <option value="">Select the cab type</option>
+                <option value="Micro">Micro</option>
+                <option value="Mini">Mini</option>
+                <option value="Pool">Pool</option>
+               </select>
                 </div>
                 <div class="form-group">
                     <input type="text" ng-model="getDriver[0].Make" class="form-control" />

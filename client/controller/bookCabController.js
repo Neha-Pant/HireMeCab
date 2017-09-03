@@ -1,4 +1,4 @@
-angular.module('meanApp').controller('bookCabController',function($scope, $http,$rootScope,$location,$cookies)//,modalProvider)
+angular.module('meanApp').controller('bookCabController',function($scope, $http,$rootScope,$location,$cookies,modalProvider)
 {
 var allMyMarkers = [];
 var myMarker,fare,n,custname,mob,name;
@@ -151,6 +151,8 @@ var myMarker,fare,n,custname,mob,name;
 //     });
 //     $("#myFareModal").modal();
 // }
+
+
 // $scope.sendDetails=function(){
 //   console.log(start);
 //   var end=$('#destination').val();
@@ -204,6 +206,21 @@ var myMarker,fare,n,custname,mob,name;
 // document.getElementById('en').innerHTML=end;
 // // modalProvider.openPopupModal();
 // }
+
+$(document).ready(function(){
+var date=new Date();
+var hours = date.getHours();
+var minutes = date.getMinutes();
+var ampm = hours >= 12 ? 'PM' : 'AM';
+hours = hours % 12;
+hours = hours ? hours : 12; // the hour '0' should be '12'
+hours = hours < 10 ? '0'+hours : hours;
+minutes = minutes < 10 ? '0'+minutes : minutes;
+var strTime = hours + ':' + minutes + +' '+ampm;
+$rootScope.bookNow=strTime;
+console.log($rootScope.bookNow);
+});
+
 
   function initialize() {
     if (navigator.geolocation)
@@ -340,9 +357,9 @@ $scope.getEstimate=function(){
             var origins = response.originAddresses[0];
           var destinations = response.destinationAddresses[0];
         //   document.getElementById('distance').innerHTML=response.rows[0].elements[0].distance.text;
-        // $rootScope.dis=response.rows[0].elements[0].distance.text;
-        // $rootScope.di=response.rows[0].elements[0].distance.value/1000;
-        // $rootScope.tym=response.rows[0].elements[0].duration.text;
+        $rootScope.dis=response.rows[0].elements[0].distance.text;
+        $rootScope.di=response.rows[0].elements[0].distance.value/1000;
+        $rootScope.tym=response.rows[0].elements[0].duration.text;
         // document.getElementById('time').innerHTML=response.rows[0].elements[0].duration.text;
         // $rootScope.tym1=response.rows[0].elements[0].duration.value/60;
             var origins = response.originAddresses[0];
@@ -360,35 +377,32 @@ $scope.getEstimate=function(){
 
         $scope.getFare=function()
     {     
-  var sel;
-  var pr=document.getElementsByName("optradio");
-  for(i=0;i<pr.length;i++)
-  {
-    if(pr[i].checked)
-    {
-      sel=pr[i].value;
-    }
-  }
-
+  //var pr;
+  var sel=document.getElementById('cabType').value;
+  // for(i=0;i<pr.length;i++)
+  // {
+  //   if(pr[i].checked)
+  //   {
+  //     sel=pr[i].value;
+  //   }
+  // }
   $http.get('/tapi/GetSelectedPlan/'+sel).then(function (response) {
   $rootScope.currPlan=response.data;
 
       if(response.length!=0){
 
-        $rootScope.SelCurrCar=$rootScope.currPlan[0].Category;
-        $rootScope.BaseCurrAmt=$rootScope.currPlan[0].BaseFare;
-        $rootScope.PeakCurrAmt=$rootScope.currPlan[0].PeakFare;
-        $rootScope.DistCurrAmt=$rootScope.currPlan[0].DistanceFare;
-        $rootScope.RideCurrAmt=$rootScope.currPlan[0].RideTimeFare;
+        $rootScope.SelCurrCar=$rootScope.currPlan[0].CabType;
+        $rootScope.BaseCurrAmt=$rootScope.currPlan[0].NormalRate;
+        $rootScope.PeakCurrAmt=$rootScope.currPlan[0].PeakRate;
 
-        if($rootScope.bookNow>=$rootScope.currPlan[0].StartPeakTime && $rootScope.bookNow<=$rootScope.currPlan[0].EndPeakTime)
+        if($rootScope.bookNow>=$rootScope.currPlan[0].StartPeakHour && $rootScope.bookNow<=$rootScope.currPlan[0].EndPeakHour)
         {
           console.log('current time inside peak hour');
-          $rootScope.Fare=($rootScope.BaseCurrAmt+($rootScope.DistCurrAmt*$rootScope.di)+($rootScope.RideCurrAmt*$rootScope.tym1))*$rootScope.PeakCurrAmt;
+          $rootScope.Fare=($rootScope.PeakCurrAmt*$rootScope.di);
         }
         else {
           console.log('current time inside non peak hour');
-          $rootScope.Fare=$rootScope.BaseCurrAmt+($rootScope.DistCurrAmt*$rootScope.di)+($rootScope.RideCurrAmt*$rootScope.tym1);
+          $rootScope.Fare=$rootScope.BaseCurrAmt*$rootScope.di;
             }
             fare=$rootScope.Fare;
             console.log(fare);
@@ -401,6 +415,9 @@ $scope.getEstimate=function(){
     });
     $("#myFareModal").modal();
 }
+
+
+
 
 
 // $('#myModal').on('hidden.bs.modal', function (e) {

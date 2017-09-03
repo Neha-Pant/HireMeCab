@@ -27,7 +27,7 @@ $(document).ready(function(){
         $http.post('/tapi/AddTariff', $scope.Tariff).then(function(response) {
             console.log('Tariff data saved');
         });
-        
+        alert('Tariff added successfully .');
         window.location.reload();
     }
 

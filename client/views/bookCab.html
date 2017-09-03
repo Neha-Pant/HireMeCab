@@ -45,7 +45,8 @@
     <td class="col-md-3 panel panel-info panel-heading">
       <div style="font-size:30px" class=" col-md-offset-2 glyphicon glyphicon-time"></div>
       <span class="fontdeco" style="font-size:30px">Time</span>&nbsp;&nbsp;
-       <span id="spanTime" style="font-size:18px" class="fontdeco badge"></span></td>
+       <span id="spanTime" style="font-size:18px" class="fontdeco badge"></span>
+       </td>
     </tr>
 
   </table>
@@ -61,6 +62,16 @@
     <div id="map_canvas"></div>
 <br/><br/>
     </div>
+     <div class="col-md-8 col-md-offset-2">
+        <center>
+              <select id="cabType" class="form-control">
+                <option value="">Select the cab type</option>
+                <option value="Micro">Micro</option>
+                <option value="Mini">Mini</option>
+                <option value="Pool">Pool</option>
+               </select>
+        </center>
+        </div>
 
     <div class="col-md-8 col-md-offset-2">
         <center>
@@ -83,7 +94,7 @@
 <div class="modal-content">
 <div class="modal-header">
  <button type="button" class="close" data-dismiss="modal">&times;</button>
- <h4 class="modal-title">Fare Details</h4>
+ <h2 class="modal-title">Estimated Fare</h2>
 </div>
 <div class="modal-body">
  <div class="form-group">
