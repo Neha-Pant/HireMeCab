@@ -18,4 +18,4 @@ var BookingSchema=mongoose.Schema({
   DriverCab:Object
 });
 
-module.exports=mongoose.model('Booking',BookingSchema, 'Booking');
+module.exports=mongoose.model('BookingDetails',BookingSchema, 'BookingDetails');

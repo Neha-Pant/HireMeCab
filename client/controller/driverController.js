@@ -125,6 +125,7 @@ var num,n,car,carn,carnum,cart,DriverDetails;
     }
   });
 });
+
   socket = io.connect('http://localhost:3000', {reconnect: false});
     socket.on('MyBook', function(data) {
     console.log('connected');
@@ -180,9 +181,9 @@ var num,n,car,carn,carnum,cart,DriverDetails;
         marker=  new google.maps.Marker({
         position: myLatlng,
         map: map,
-       // icon: '../public/Img/car_ic.png',
+        //icon: '../public/images/mm1.jpg',
         draggable: true,
-        animation:  google.maps.Animation.DROP,
+        animation:  google.maps.Animation.BOUNCE,
         });
 
 

@@ -50,7 +50,7 @@ io.on('connection', function(socket) {
         });
 
     });
-    socket.on('DriverDetail', function(data) {
+    socket.on('Driver', function(data) {
             socket.broadcast.emit('MyDriver', {
             msg: data.All
         });

@@ -5,8 +5,8 @@ var myMarker,fare,n,custname,mob,name;
 
 $(document).ready(function(){
   name=$cookies.getObject('authUser');
-  custname=name.currentUser.userInfo.fname;
-  mob=name.currentUser.userInfo.mobile;
+  custname=$rootScope.LoginName.currentUser.userInfo.name;
+  mob=$rootScope.LoginName.currentUser.userInfo.phone;
   console.log(custname);
   console.log(mob);
  var today=new Date();
@@ -50,7 +50,7 @@ socket = io.connect('http://localhost:3000', {reconnect: false});
             myMarker=  new google.maps.Marker({
             position: driverLatlng,
             map: map,
-            icon: '../public/Img/car_ic.png',
+            //icon: '../public/Img/car_ic.png',
             store_id: data.message.driverId,
             });
             allMyMarkers.push( myMarker );
@@ -66,7 +66,7 @@ else{
 
   socket.on('MyDriver', function(data) {
 
-  $scope.DriverData=data.msg,
+  $scope.DriverData=data.msg;
   $scope.DriverName=data.msg.driverName;
   $scope.DriverMobile=data.msg.mobi;
   $scope.DriverCarN=data.msg.carn;
@@ -101,7 +101,7 @@ $scope.sendDetails=function(){
   var end=$('#destination').val();
   console.log(end);
 
-  var Booking={
+  var BookingDetails={
   startP : start,
   endP : end,
   cust: custname,
@@ -110,24 +110,24 @@ $scope.sendDetails=function(){
   };
 
 socket.emit('BookDetail', {
-     All: Booking
+     All: BookingDetails
     });
     $('#myFareModal').modal('hide');
 
       $scope.Booking={
-      User:name.currentUser.userInfo,
-      StartPoint:start,
-      EndPoint:end,
-      BookingDate:$rootScope.bookDate,
-      BookingTime:$rootScope.bookTime,
+      user:$rootScope.LoginName.currentUser.userInfo,
+      Pickup:start,
+      Destination:end,
+      BookDate:$rootScope.bookDate,
+      BookTime:$rootScope.bookTime,
       Distance:$rootScope.di,
-      Time:$rootScope.tym,
+      Duration:$rootScope.tym,
       Amount:$rootScope.Fare,
       BookingType:'Current',
-      CabCategory:$rootScope.SelCurrCar,
-      DriverDetails:$scope.DriverData
+      CabType:$rootScope.SelCurrCar,
+      DriverCab:$scope.DriverData
     }
-if(($scope.Booking.BookingType=='Current') && ($scope.Booking.DriverDetails==null))
+if(($scope.Booking.BookingType=='Current') && ($scope.Booking.DriverCab==null))
 {
 alert('sorry no cabs available');
 }
@@ -135,6 +135,7 @@ else{
   $http.post('/bapi/AddBooking/',$scope.Booking).then(function(response){
     console.log('Data of confirmBooking submitted successfully');
   });
+  alert('Booking successfully done !!!');
     $('#myfinalModal').modal('show');
     $('#myfinalModal').on('hidden.bs.modal', function (e) {
 

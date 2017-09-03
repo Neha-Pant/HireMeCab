@@ -5,7 +5,7 @@ var router=express.Router();
 var Booking=require('../models/BookingModel.js');
 
 router.post('/AddBooking', function (req, res) {
-  var booking = new BookingDetails({
+  var booking = new Booking({
     user: req.body.User,
     Pickup: req.body.StartPoint,
     Destination: req.body.EndPoint,
