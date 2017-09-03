@@ -50,7 +50,7 @@ socket = io.connect('http://localhost:3000', {reconnect: false});
             myMarker=  new google.maps.Marker({
             position: driverLatlng,
             map: map,
-            //icon: '../public/Img/car_ic.png',
+            icon: '../public/images/mm2.png',
             store_id: data.message.driverId,
             });
             allMyMarkers.push( myMarker );
@@ -94,6 +94,49 @@ else{
     }
   }
       });
+
+
+$scope.getFare=function()
+    {     
+  //var pr;
+  var sel=document.getElementById('cabType').value;
+  // for(i=0;i<pr.length;i++)
+  // {
+  //   if(pr[i].checked)
+  //   {
+  //     sel=pr[i].value;
+  //   }
+  // }
+  $http.get('/tapi/GetSelectedPlan/'+sel).then(function (response) {
+  $rootScope.currPlan=response.data;
+
+      if(response.length!=0){
+
+        $rootScope.SelCurrCar=$rootScope.currPlan[0].CabType;
+        $rootScope.BaseCurrAmt=$rootScope.currPlan[0].NormalRate;
+        $rootScope.PeakCurrAmt=$rootScope.currPlan[0].PeakRate;
+
+        if($rootScope.bookNow>=$rootScope.currPlan[0].StartPeakHour && $rootScope.bookNow<=$rootScope.currPlan[0].EndPeakHour)
+        {
+          console.log('current time inside peak hour');
+          $rootScope.Fare=($rootScope.PeakCurrAmt*$rootScope.di);
+        }
+        else {
+          console.log('current time inside non peak hour');
+          $rootScope.Fare=$rootScope.BaseCurrAmt*$rootScope.di;
+            }
+            fare=$rootScope.Fare;
+            console.log(fare);
+      }
+      else {
+        alert('no tariff');
+      }
+        console.log(fare);
+
+    });
+    $("#myFareModal").modal();
+}
+
 
 
 $scope.sendDetails=function(){
@@ -318,46 +361,7 @@ $scope.getEstimate=function(){
         }
 
 
-        $scope.getFare=function()
-    {     
-  //var pr;
-  var sel=document.getElementById('cabType').value;
-  // for(i=0;i<pr.length;i++)
-  // {
-  //   if(pr[i].checked)
-  //   {
-  //     sel=pr[i].value;
-  //   }
-  // }
-  $http.get('/tapi/GetSelectedPlan/'+sel).then(function (response) {
-  $rootScope.currPlan=response.data;
-
-      if(response.length!=0){
-
-        $rootScope.SelCurrCar=$rootScope.currPlan[0].CabType;
-        $rootScope.BaseCurrAmt=$rootScope.currPlan[0].NormalRate;
-        $rootScope.PeakCurrAmt=$rootScope.currPlan[0].PeakRate;
-
-        if($rootScope.bookNow>=$rootScope.currPlan[0].StartPeakHour && $rootScope.bookNow<=$rootScope.currPlan[0].EndPeakHour)
-        {
-          console.log('current time inside peak hour');
-          $rootScope.Fare=($rootScope.PeakCurrAmt*$rootScope.di);
-        }
-        else {
-          console.log('current time inside non peak hour');
-          $rootScope.Fare=$rootScope.BaseCurrAmt*$rootScope.di;
-            }
-            fare=$rootScope.Fare;
-            console.log(fare);
-      }
-      else {
-        alert('no tariff');
-      }
-        console.log(fare);
-
-    });
-    $("#myFareModal").modal();
-}
+        
 
 
 

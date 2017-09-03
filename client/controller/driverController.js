@@ -6,6 +6,72 @@ angular.module('meanApp').controller('driverController', function($scope, $http,
     //  $scope.getCDriver="";
     //  $scope.getUDriver="";
 
+
+function initialize() {
+    if (navigator.geolocation)
+            {
+              navigator.geolocation.getCurrentPosition(success);
+            }
+      else {
+          alert("Geo Location is not supported on your current browser!");
+           }
+        }initialize();
+
+      function success(position) {
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        var myLatlng = new google.maps.LatLng(lat, long);
+        geocoder = new google.maps.Geocoder();
+        directionsService = new google.maps.DirectionsService();
+        directionsDisplay = new google.maps.DirectionsRenderer({
+        suppressMarkers: true
+        });
+        var myOptions = {
+            zoom: 15,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+           }
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        directionsDisplay.setMap(map);
+        marker=  new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        icon: '../public/images/mm2.png',
+        draggable: true,
+        animation:  google.maps.Animation.BOUNCE,
+        });
+
+
+        var infoWindow = new google.maps.InfoWindow({map: map});
+          infoWindow.setPosition(myLatlng);
+          infoWindow.setContent('Location Found');
+          map.setCenter(myLatlng);
+
+
+
+          function init1()
+          {
+            geocoder.geocode({ 'latLng': myLatlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                      if (results[1]) {
+
+                    dloc=results[1].formatted_address;
+                    console.log(dloc);
+                    socket.emit('MyMessage', {
+                        message: dloc
+                    });
+
+                      }
+                  }
+            });
+          }
+          init1();
+
+};
+
+
+
+
     $scope.init = function(){
     // $http.get('/dapi/GetDriver').success(function (response) {
     //   $scope.driverData=response;
@@ -104,7 +170,8 @@ var num,n,car,carn,carnum,cart,DriverDetails;
       mobi:drivermob,
       cart:car,
       carn:carnum
-      };
+    };
+    console.log('emitting data for driver : '+DriverDetails);
       socket.emit('Driver', {
            All: DriverDetails
           });
@@ -152,67 +219,7 @@ var num,n,car,carn,carnum,cart,DriverDetails;
         });
     });
   
-  function initialize() {
-    if (navigator.geolocation)
-            {
-              navigator.geolocation.getCurrentPosition(success);
-            }
-      else {
-          alert("Geo Location is not supported on your current browser!");
-           }
-        }initialize();
-
-      function success(position) {
-        var lat = position.coords.latitude;
-        var long = position.coords.longitude;
-        var myLatlng = new google.maps.LatLng(lat, long);
-        geocoder = new google.maps.Geocoder();
-        directionsService = new google.maps.DirectionsService();
-        directionsDisplay = new google.maps.DirectionsRenderer({
-        suppressMarkers: true
-        });
-        var myOptions = {
-            zoom: 15,
-            center: myLatlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-           }
-        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-        directionsDisplay.setMap(map);
-        marker=  new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        //icon: '../public/images/mm1.jpg',
-        draggable: true,
-        animation:  google.maps.Animation.BOUNCE,
-        });
-
-
-        var infoWindow = new google.maps.InfoWindow({map: map});
-          infoWindow.setPosition(myLatlng);
-          infoWindow.setContent('Location Found');
-          map.setCenter(myLatlng);
-
-
-
-          function init1()
-          {
-            geocoder.geocode({ 'latLng': myLatlng }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                      if (results[1]) {
-
-                    dloc=results[1].formatted_address;
-                    console.log(dloc);
-                    socket.emit('MyMessage', {
-                        message: dloc
-                    });
-
-                      }
-                  }
-            });
-          }
-          init1();
-
-};
+  
 
 
 });
