@@ -54,7 +54,23 @@ router.get('/GetAllDrivers',function(req,res){
       });
    });
 
-   router.get('/getDriverById/:Phone',function(req,res){
+// router.get('/getDriverByI/:id',function(req,res){
+//     console.log(req.params.id);
+//   Driver.findById(req.params.id, function (err, docs) {
+//   if (err) {
+//       res.send(err)
+//   }
+//   if (docs) {
+//     console.log(docs);
+//       res.send(docs)
+//   } else {
+//       res.send("No Driver found with that ID")
+//   }
+// });
+//   });
+
+
+   router.get('/getDriverByPhone/:Phone',function(req,res){
        Driver.aggregate([
        { $match: {
            Phone: req.params.Phone
@@ -92,7 +108,7 @@ router.delete('/DeleteDriver/:phone', function(req, res) {
     });
 });
 
-router.post('/UpdateDriver/:id/:regno/:licenseno/:address/:mobileno/:photo/:model/:cabtype/:make', function(req, res) {
+router.post('/UpdateDriver/:id/:regno/:licenseno/:address/:mobileno/:model/:cabtype/:make', function(req, res) {
     Driver.remove({
         '_id': req.params.id
     }, function(err) {
@@ -109,8 +125,8 @@ router.post('/UpdateDriver/:id/:regno/:licenseno/:address/:mobileno/:photo/:mode
     newDriver.RegNo = req.params.regno;
     newDriver.LicenseNo = req.params.licenseno;
     newDriver.Address = req.params.address;
-    newDriver.MobileNo = req.params.mobileno;
-    newDriver.Photo = req.params.photo;
+    newDriver.Phone = req.params.mobileno;
+    // newDriver.Photo = req.params.photo;
     newDriver.Model = req.params.model;
     newDriver.CabType = req.params.cabtype;
     newDriver.Make = req.params.make;

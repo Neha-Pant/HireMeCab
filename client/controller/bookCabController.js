@@ -357,6 +357,52 @@ $scope.getEstimate=function(){
          });
         }
 
+
+        $scope.getFare=function()
+    {     
+  var sel;
+  var pr=document.getElementsByName("optradio");
+  for(i=0;i<pr.length;i++)
+  {
+    if(pr[i].checked)
+    {
+      sel=pr[i].value;
+    }
+  }
+
+  $http.get('/tapi/GetSelectedPlan/'+sel).then(function (response) {
+  $rootScope.currPlan=response.data;
+
+      if(response.length!=0){
+
+        $rootScope.SelCurrCar=$rootScope.currPlan[0].Category;
+        $rootScope.BaseCurrAmt=$rootScope.currPlan[0].BaseFare;
+        $rootScope.PeakCurrAmt=$rootScope.currPlan[0].PeakFare;
+        $rootScope.DistCurrAmt=$rootScope.currPlan[0].DistanceFare;
+        $rootScope.RideCurrAmt=$rootScope.currPlan[0].RideTimeFare;
+
+        if($rootScope.bookNow>=$rootScope.currPlan[0].StartPeakTime && $rootScope.bookNow<=$rootScope.currPlan[0].EndPeakTime)
+        {
+          console.log('current time inside peak hour');
+          $rootScope.Fare=($rootScope.BaseCurrAmt+($rootScope.DistCurrAmt*$rootScope.di)+($rootScope.RideCurrAmt*$rootScope.tym1))*$rootScope.PeakCurrAmt;
+        }
+        else {
+          console.log('current time inside non peak hour');
+          $rootScope.Fare=$rootScope.BaseCurrAmt+($rootScope.DistCurrAmt*$rootScope.di)+($rootScope.RideCurrAmt*$rootScope.tym1);
+            }
+            fare=$rootScope.Fare;
+            console.log(fare);
+      }
+      else {
+        alert('no tariff');
+      }
+        console.log(fare);
+
+    });
+    $("#myFareModal").modal();
+}
+
+
 // $('#myModal').on('hidden.bs.modal', function (e) {
 //   var s1=document.getElementById('datepicker').value;
 // var t1=document.getElementById('timepicker').value;

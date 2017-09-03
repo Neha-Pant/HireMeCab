@@ -4,6 +4,25 @@ var router = express.Router();
 var User = require('../models/UserModel');
 var jwt = require('jsonwebtoken');
 
+// router.get('/GetAllDrivers',function(req,res){
+//    User.aggregate([{
+//           $lookup: {
+//               from: "driver",
+//               localField: "Phone",
+//               foreignField: "Phone",
+//               as: "Cab"
+//           }
+//       }, {
+//           $match: {
+//               "Cab": {
+//                   $ne: []
+//               }
+//           }
+//       }]).exec().then(function(data) {
+//           res.json(data);
+//       });
+//    });
+
 router.post('/AddPeople', function(req, res) {
     newPeople = new User();
     newPeople.Name = req.body.Name;
@@ -92,6 +111,26 @@ router.post('/login', function(req, res) {
         }
     });
 });
+
+router.get('/GetDriverByPhone/:phone', function(req, res) {
+    User.find({'Phone': req.params.phone}, function(err,data) {
+               if (err) {
+            throw err;
+        } else {
+            res.json(data);
+        }
+    });
+});
+
+// router.get('/GetDriver', function(req, res) {
+//     User.find({Role:'Driver'}, function(err, data) {
+//         if (err) {
+//             throw err;
+//         } else {
+//             res.json(data);
+//         }
+//     });
+// });
 
 router.delete('/DeleteUserD/:phone', function(req, res) {
     User.remove({
