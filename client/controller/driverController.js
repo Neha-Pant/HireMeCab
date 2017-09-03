@@ -1,6 +1,10 @@
 angular.module('meanApp').controller('driverController', function($scope, $http) 
 {
      $scope.driverData="";
+    //  $scope.driverUData="";
+     $scope.getDriver="";
+    //  $scope.getCDriver="";
+    //  $scope.getUDriver="";
 
     $scope.init = function(){
     // $http.get('/dapi/GetDriver').success(function (response) {
@@ -12,6 +16,11 @@ angular.module('meanApp').controller('driverController', function($scope, $http)
     $http.get('/dapi/GetAllDrivers').success(function (response) {
       $scope.driverData=response;
     });
+  
+    // $http.get('/uapi/GetAllDrivers').success(function (response) {
+    //   $scope.driverUData=response;
+    // });
+    $('#updateDiv1').hide();   
   };
   $scope.init();
 
@@ -26,12 +35,32 @@ angular.module('meanApp').controller('driverController', function($scope, $http)
         });
     }
 
-$scope.UpdateDriver = function(user,t){
-      $http.post('/dapi/UpdateDriver/'+t._id+'/'+user.RegNo+'/'+user.LicenseNo+'/'+user.Address+'/'+user.Phone+'/'+user.Model+'/'+user.CabType+'/'+user.Make).then(function (response) 
+    $scope.getDriverByPhone=function(did){
+  $http.get('/dapi/getDriverByPhone/'+did).then(function (response) {
+      // $scope.getCDriver=response.data;
+      $scope.getDriver=response.data;
+        console.log($scope.getDriver);
+  });
+// $http.get('/uapi/getDriverByPhone/'+did).then(function (response) {
+//       $scope.getUDriver=response.data;
+//         console.log($scope.getUDriver);
+//   });  
+};
+
+$scope.UpdateDriver = function(t){
+      $scope.getDriverByPhone(t);
+        $('#updateDiv1').show(); 
+}
+
+ $scope.UpdateD=function()
+  {
+      $http.post('/dapi/UpdateDriver/'+$scope.getDriver[0]._id+'/'+$scope.getDriver[0].RegNo+'/'+$scope.getDriver[0].LicenseNo+'/'+$scope.getDriver[0].Address+'/'+$scope.getDriver[0].Phone+'/'+$scope.getDriver[0].Model+'/'+$scope.getDriver[0].CabType+'/'+$scope.getDriver[0].Make).then(function (response) 
       { 
         console.log('Data of cab for driver saved !!!');
       });
-        window.location.reload();  
+            console.log('Data updated for driver .');
+                  alert('Data updated for driver .');
+        window.location.reload();
   }
     $scope.init();
 

@@ -14,7 +14,7 @@ var myMarker,fare,n,custname,mob,name;
 //     minDate: new Date(today),
 //     maxDate: new Date(today.setDate(today.getDate() + 1))
 //   });
-//   $('#showDur').hide();
+//   $('#showDur').hide();   
 // });
 
 // $(document).ready(function(){
