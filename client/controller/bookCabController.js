@@ -15,21 +15,41 @@ $(document).ready(function(){
     minDate: new Date(today),
     maxDate: new Date(today.setDate(today.getDate() + 1))
   });
+  //   var s1=document.getElementById('datepicker').value;
+// var t1=document.getElementById('timepicker').value;
+//     $rootScope.bookDate=s1;
+//     $rootScope.bookTime=t1;
+//     $rootScope.startPoint=document.getElementById("origin").value;
+//     $rootScope.endPoint=document.getElementById("destination").value;
   $('#showDur').hide();   
 });
 
-// $http.get('/bookingapi/GetAllRides/'+mob).then(function (response) {
-//   if(response){
-//     console.log('inside GetAllRides')
-//     $scope.GetAllRides=response.data;
-//     console.log($scope.GetAllRides);
-//       }
-//   else {
-//       console.log('sorry no response');
-//   }
-// });
 
-// });
+$(document).ready(function(){
+var date=new Date();
+var hours = date.getHours();
+var minutes = date.getMinutes();
+var ampm = hours >= 12 ? 'PM' : 'AM';
+hours = hours % 12;
+hours = hours ? hours : 12; // the hour '0' should be '12'
+hours = hours < 10 ? '0'+hours : hours;
+minutes = minutes < 10 ? '0'+minutes : minutes;
+var strTime = hours + ':' + minutes + +' '+ampm;
+$rootScope.bookNow=strTime;
+console.log($rootScope.bookNow);
+
+$http.get('/bapi/GetAllRides/'+mob).then(function (response) {
+  if(response){
+    console.log('inside GetAllRides')
+    $scope.GetAllRides=response.data;
+    console.log($scope.GetAllRides);
+      }
+  else {
+      console.log('sorry no response');
+  }
+});
+
+});
 
 var socket=io.connect();
 socket = io.connect('http://localhost:3000', {reconnect: false});
@@ -192,20 +212,6 @@ document.getElementById('en').innerHTML=end;
 }
 
 
-
-$(document).ready(function(){
-var date=new Date();
-var hours = date.getHours();
-var minutes = date.getMinutes();
-var ampm = hours >= 12 ? 'PM' : 'AM';
-hours = hours % 12;
-hours = hours ? hours : 12; // the hour '0' should be '12'
-hours = hours < 10 ? '0'+hours : hours;
-minutes = minutes < 10 ? '0'+minutes : minutes;
-var strTime = hours + ':' + minutes + +' '+ampm;
-$rootScope.bookNow=strTime;
-console.log($rootScope.bookNow);
-});
 
 
   function initialize() {

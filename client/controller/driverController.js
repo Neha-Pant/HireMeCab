@@ -7,6 +7,79 @@ angular.module('meanApp').controller('driverController', function($scope, $http,
     //  $scope.getUDriver="";
 
 
+var num,n,car,carn,carnum,cart,DriverDetails;
+  var socket = io();
+  $(document).ready(function(){
+  var name=$cookies.getObject('authUser');
+  var drivername=$rootScope.LoginName.currentUser.userInfo.name;
+  var drivermob=$rootScope.LoginName.currentUser.userInfo.phone;
+  var email=$rootScope.LoginName.currentUser.userInfo.email;
+  $http.get('/dapi/getDriverByPhone/'+drivermob).then(function (response) {
+    if(response){
+      $scope.getDriverCab=response.data;
+      carnum=$scope.getDriverCab[0].RegNo;
+      car=$scope.getDriverCab[0].Make;
+      DriverDetails={
+      driverName : drivername,
+      mobi:drivermob,
+      cart:car,
+      carn:carnum
+    };
+    console.log('emitting data for driver : '+DriverDetails);
+      socket.emit('Driver', {
+           All: DriverDetails
+          });
+    }
+    else {
+        console.log('sorry no response');
+    }
+  });
+
+  $http.get('/bapi/GetAllBookings/'+drivermob).then(function (response) {
+    if(response){
+      console.log('inside GetAllBookings')
+      $scope.GetAllBookings=response.data;
+      console.log($scope.GetAllBookings);
+        }
+    else {
+        console.log('sorry no response');
+    }
+  });
+});
+
+
+
+  
+socket = io.connect('http://localhost:3000', {reconnect: false});
+    socket.on('MyBook', function(data) {
+    console.log('connected');
+    $scope.startLoc=data.msg.startP;
+    $scope.EndLoc=data.msg.endP;
+    $scope.mob=data.msg.mobi;
+    $scope.customer=data.msg.cust;
+    $scope.bookFare=data.msg.Fare;
+    num=  $scope.bookFare;
+    n = num.toFixed(2);
+
+$(document).ready(function(){
+
+        $("#myBtn").click(function(){
+          $("#myDriverModal").modal();
+          document.getElementById('fp').innerHTML=$scope.startLoc;
+          document.getElementById('ep').innerHTML=$scope.EndLoc;
+          document.getElementById('mo').innerHTML=$scope.mob;
+          document.getElementById('cu').innerHTML=$scope.customer;
+          document.getElementById('fa').innerHTML=n;
+        });
+    });
+
+    console.log($scope.startLoc);
+    console.log(n);
+  });
+  
+  
+  
+
 function initialize() {
     if (navigator.geolocation)
             {
@@ -153,71 +226,7 @@ $scope.UpdateDriver = function(t){
 
 
 
-var num,n,car,carn,carnum,cart,DriverDetails;
-  var socket = io();
-  $(document).ready(function(){
-  var name=$cookies.getObject('authUser');
-  var drivername=$rootScope.LoginName.currentUser.userInfo.name;
-  var drivermob=$rootScope.LoginName.currentUser.userInfo.phone;
-  var email=$rootScope.LoginName.currentUser.userInfo.email;
-  $http.get('/dapi/getDriverByPhone/'+drivermob).then(function (response) {
-    if(response){
-      $scope.getDriverCab=response.data;
-      carnum=$scope.getDriverCab[0].RegNo;
-      car=$scope.getDriverCab[0].Make;
-      DriverDetails={
-      driverName : drivername,
-      mobi:drivermob,
-      cart:car,
-      carn:carnum
-    };
-    console.log('emitting data for driver : '+DriverDetails);
-      socket.emit('Driver', {
-           All: DriverDetails
-          });
-    }
-    else {
-        console.log('sorry no response');
-    }
-  });
 
-  $http.get('/bapi/GetAllBookings/'+drivermob).then(function (response) {
-    if(response){
-      console.log('inside GetAllBookings')
-      $scope.GetAllBookings=response.data;
-      console.log($scope.GetAllBookings);
-        }
-    else {
-        console.log('sorry no response');
-    }
-  });
-});
-
-  socket = io.connect('http://localhost:3000', {reconnect: false});
-    socket.on('MyBook', function(data) {
-    console.log('connected');
-    $scope.startLoc=data.msg.startP;
-    $scope.EndLoc=data.msg.endP;
-    $scope.mob=data.msg.mobi;
-    $scope.customer=data.msg.cust;
-    $scope.bookFare=data.msg.Fare;
-    num=  $scope.bookFare;
-    n = num.toFixed(2);
-
-    console.log($scope.startLoc);
-    console.log(n);
-    });
-    $(document).ready(function(){
-
-        $("#myBtn").click(function(){
-          $("#myDriverModal").modal();
-          document.getElementById('fp').innerHTML=$scope.startLoc;
-          document.getElementById('ep').innerHTML=$scope.EndLoc;
-          document.getElementById('mo').innerHTML=$scope.mob;
-          document.getElementById('cu').innerHTML=$scope.customer;
-          document.getElementById('fa').innerHTML=n;
-        });
-    });
   
   
 
