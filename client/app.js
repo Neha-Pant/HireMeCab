@@ -28,6 +28,9 @@ app.config(function($routeProvider,$locationProvider) {
     }).when('/booking', {
         templateUrl: './views/booking.html',
         controller: 'driverController'
+    }).when('/rides', {
+        templateUrl: './views/myrides.html',
+        controller: 'bookCabController'
     }).when('/tariff', {
         templateUrl: './views/tariffCreate.html',
         controller: 'tariffController'
@@ -74,6 +77,9 @@ app.run(function($rootScope, $http, $location, $sessionStorage, $cookies) {
               $location.path('/error');
             }
             else if (restrictedPage && (loggedInUser.role!='Driver') && $location.path()=='/booking') {
+            $location.path('/error');
+        }
+        else if (restrictedPage && (loggedInUser.role!='Customer') && $location.path()=='/rides') {
             $location.path('/error');
             }
             else if (restrictedPage && loggedInUser.role!='Customer' && $location.path()=='/user') {
