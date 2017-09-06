@@ -13,7 +13,7 @@
     </div>
 
    <div class="col-md-9">
-    <table class="table table-bordered table-hover">
+    <table class="table  table-condensed table-striped table-hover">
       <tr>  
         <th>CabType</th>
         <th>StartPeakHour</th>
@@ -29,8 +29,8 @@
         <td>{{t.EndPeakHour}}</td>
         <td>{{t.NormalRate}}</td>
         <td>{{t.PeakRate}}</td>
-        <td><button ng-click="DeleteTariff(t)" class="btn btn-danger" onclick="this.parentElement.style.display='none';">DELETE  <span class="glyphicon glyphicon-remove"></span></button></td>
-        <td><button type="button" ng-click="UpdateTariff(t._id)" class="btn btn-primary">UPDATE</button></td>
+        <td><button ng-click="DeleteTariff(t)" class="btn btn-danger" onclick="this.parentElement.style.display='none';"><span class="glyphicon glyphicon-remove-circle"></span></button></td>
+        <td><button type="button" ng-click="UpdateTariff(t._id)" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button></td>
   
       </tr>
     </table>

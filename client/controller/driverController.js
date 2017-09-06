@@ -199,7 +199,7 @@ $scope.UpdateDriver = function(t){
       });
             console.log('Data updated for driver .');
                   alert('Data updated for driver .');
-        window.location.reload();
+        $('#updateDiv1').hide(); 
   }
     $scope.init();
 

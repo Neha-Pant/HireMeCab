@@ -66,7 +66,7 @@ $scope.getTariffById=function(tid){
     $http.post('/tapi/UpdateTariff/'+$scope.getTariff._id+'/'+$scope.getTariff.CabType+'/'+$scope.getTariff.StartPeakHour+'/'+$scope.getTariff.EndPeakHour+'/'+$scope.getTariff.NormalRate+'/'+$scope.getTariff.PeakRate).then(function (response) 
       {alert('Data successfully updated !!!'); });
       console.log('Data updated for tariff .');
-      window.location.reload();
+          $('#updateDiv').hide();   
   }
     $scope.init();
 
