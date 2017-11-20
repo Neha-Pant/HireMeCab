@@ -1,4 +1,4 @@
-angular.module('meanApp').controller('tariffController', function($scope, $http,$location) 
+angular.module('meanApp').controller('tariffController', function($scope, $http,$location,$rootScope) 
 {
       $scope.tariffData="";
     // $scope.tariffDataN="";
@@ -9,6 +9,63 @@ $(document).ready(function(){
   $('#timepicker2').timepicki();
   // $('#timepicker3').timepicki();
   // $('#timepicker4').timepicki();
+
+ sessionStorage.setItem('checkV',true);
+        sessionStorage.setItem('adminCheckV',true);
+        sessionStorage.setItem('driverCheckV',true);
+        sessionStorage.setItem('userCheckV',true);
+        
+        $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                console.log('UserName form TariffController : '+$rootScope.LoginName);
+                
+
+        $rootScope.check=true;
+        $rootScope.userCheck=true;
+        $rootScope.adminCheck=true;
+        $rootScope.driverCheck=true;
+       
+
+        $rootScope.User=sessionStorage.getItem('userRole');
+        console.log('Role from tariffController : '+$rootScope.User);
+            if ($rootScope.User=='Admin') {
+                  console.log($rootScope.driverCheck);
+                  //$location.path('/admin');
+                  sessionStorage.setItem('checkV',false);
+                  sessionStorage.setItem('adminCheckV',false);
+                $rootScope.check=false;//sessionStorage.getItem('checkV');
+                $rootScope.adminCheck=false;//sessionStorage.getItem('adminCheckV');
+                $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                console.log('UserName form tariffController : '+$rootScope.LoginName);
+                  }
+                  if ($rootScope.User=='Driver') {
+                    // $location.path('/driverH');
+                    $rootScope.LoginName=$cookies.getObject('authUser');
+                    sessionStorage.setItem('checkV',false);
+                    sessionStorage.setItem('driverCheckV',false);
+                    $rootScope.check=false;//sessionStorage.getItem('checkV');
+                    $rootScope.driverCheck=false;//sessionStorage.getItem('driverCheckV');
+                    $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                    console.log('UserName form tariffController : '+$rootScope.LoginName);
+                  }
+                  if ($rootScope.User=='Customer') {
+                    // $location.path('/bookCab');
+                    $rootScope.LoginName=$cookies.getObject('authUser');
+                    sessionStorage.setItem('checkV',false);
+                    sessionStorage.setItem('userCheckV',false);
+                    $rootScope.check=false;//sessionStorage.getItem('checkV');
+                    $rootScope.userCheck=false;//sessionStorage.getItem('userCheckV');
+                    $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                    console.log('UserName form tariffController : '+$rootScope.LoginName);
+                  }
+                  else {
+                    console.log('Not authorized');
+                  }
+
+
+
+
+
+
   });
 
 

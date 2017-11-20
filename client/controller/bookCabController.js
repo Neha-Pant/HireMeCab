@@ -2,13 +2,72 @@ angular.module('meanApp').controller('bookCabController',function($scope,$http,$
 {
 var allMyMarkers = [];
 var myMarker,fare,n,custname,mob,name;
+$rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
 
 $(document).ready(function(){
-  name=$cookies.getObject('authUser');
-  custname=$rootScope.LoginName.currentUser.userInfo.name;
-  mob=$rootScope.LoginName.currentUser.userInfo.phone;
+$rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+$rootScope.LoginUser=sessionStorage.getItem('user');
+  name=$rootScope.LoginUser;
+  custname=$rootScope.LoginName;
+  mob=$rootScope.LoginUser.phone;
   console.log(custname);
   console.log(mob);
+
+sessionStorage.setItem('checkV',true);
+        sessionStorage.setItem('adminCheckV',true);
+        sessionStorage.setItem('driverCheckV',true);
+        sessionStorage.setItem('userCheckV',true);
+        
+        $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                console.log('UserName form driverController : '+$rootScope.LoginName);
+                
+
+        $rootScope.check=true;
+        $rootScope.userCheck=true;
+        $rootScope.adminCheck=true;
+        $rootScope.driverCheck=true;
+       
+
+        $rootScope.User=sessionStorage.getItem('userRole');
+        console.log('Role from driverController : '+$rootScope.User);
+            if ($rootScope.User=='Admin') {
+                  console.log($rootScope.driverCheck);
+                  // $location.path('/admin');
+                  sessionStorage.setItem('checkV',false);
+                  sessionStorage.setItem('adminCheckV',false);
+                $rootScope.check=false;//sessionStorage.getItem('checkV');
+                $rootScope.adminCheck=false;//sessionStorage.getItem('adminCheckV');
+                $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                console.log('UserName form driverController : '+$rootScope.LoginName);
+                  }
+                  if ($rootScope.User=='Driver') {
+                    // $location.path('/driverH');
+                    $rootScope.LoginName=$cookies.getObject('authUser');
+                    sessionStorage.setItem('checkV',false);
+                    sessionStorage.setItem('driverCheckV',false);
+                    $rootScope.check=false;//sessionStorage.getItem('checkV');
+                    $rootScope.driverCheck=false;//sessionStorage.getItem('driverCheckV');
+                    $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                    console.log('UserName form driverController : '+$rootScope.LoginName);
+                  }
+                  if ($rootScope.User=='Customer') {
+                    // $location.path('/bookCab');
+                    $rootScope.LoginName=$cookies.getObject('authUser');
+                    sessionStorage.setItem('checkV',false);
+                    sessionStorage.setItem('userCheckV',false);
+                    $rootScope.check=false;//sessionStorage.getItem('checkV');
+                    $rootScope.userCheck=false;//sessionStorage.getItem('userCheckV');
+                    $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                    console.log('UserName form driverController : '+$rootScope.LoginName);
+                  }
+                  else {
+                    console.log('Not authorized');
+                  }
+
+
+
+
+
  var today=new Date();
   $('#timepicker').timepicki();
   $( "#datepicker").datepicker({
@@ -176,9 +235,10 @@ socket.emit('BookDetail', {
      All: BookingDetails
     });
     $('#myFareModal').modal('hide');
-
-      $scope.Booking={
-      user:$rootScope.LoginName.currentUser.userInfo,
+    $rootScope.LoginUser=sessionStorage.getItem('user');
+      $scope.Booking=
+      {
+      user:$rootScope.LoginUser,
       Pickup:start,
       Destination:end,
       BookDate:$rootScope.bookDate,
@@ -362,6 +422,7 @@ $scope.getEstimate=function(){
         $rootScope.tym=response.rows[0].elements[0].duration.text;
         document.getElementById('spanTime').innerHTML=response.rows[0].elements[0].duration.text;
         $rootScope.tym1=response.rows[0].elements[0].duration.value/60;
+        
             }
          });
         }

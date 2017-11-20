@@ -36,22 +36,23 @@ padding:10px;
                     <img src="\public\images\register.jpg" height="100pt" width="100%" alt="register"/>
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Name" ng-model="User.Name" class="form-control" />
+                    <input type="text" placeholder="Name" ng-model="User.Name" class="form-control"  required/>
                 </div>
                 <div class="form-group">
-                   <input type="text" placeholder="Address" ng-model="User.Address" class="form-control" />
+                   <input type="text" placeholder="Address" ng-model="User.Address" class="form-control"  required/>
                 </div>
                 <div class="form-group">
-                    <input type="text" ng-model="User.Email" placeholder="Email" class="form-control" />
+                    <input type="text" ng-model="User.Email" placeholder="Email" class="form-control"  required/>
                 </div>
                 <div class="form-group">
-                    <input type="text" ng-model="User.Password" placeholder="Password" class="form-control" />
+                    <input type="text" ng-model="User.Password" placeholder="Password" class="form-control"  required/>
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Confirm Password" class="form-control" />
+                    <input type="text" placeholder="Confirm Password" class="form-control" required/>
                 </div>
                 <div class="form-group">
-                    <input type="text" ng-model="User.Phone" placeholder="Phone" class="form-control" />
+                    <!--<input id="phonenum" type="tel" pattern="^\d{4}-\d{3}-\d{4}$" placeholder="Phone" class="form-control" ng-model="User.Phone" required >-->
+                    <input type="text" ng-model="User.Phone" pattern="[789][0-9]{9}" placeholder="Phone" class="form-control" required/>
                 </div>
                 <div class="form-group">
                 <center><button type="button" ng-click="SaveUser()" class="btn btn-success">Register</button></center>

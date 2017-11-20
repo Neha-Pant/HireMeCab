@@ -11,11 +11,11 @@ angular.module('meanApp').controller('userController', function($scope, $http,$l
   // $scope.init();    
     
     $scope.SaveUser = function() {
-        $http.post('/uapi/AddPeople',$scope.User).then(function(response) {
-            console.log('User data saved');
-                  window.location.reload();
+      
+         $http.post('/uapi/AddPeople',$scope.User).then(function(response) {
+        console.log('User data saved');
+         window.location.reload();
         });
-        alert("Registration done !!!");
       $scope.User='';
       $location.path('/login');
     }

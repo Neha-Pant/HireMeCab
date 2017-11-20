@@ -12,6 +12,7 @@ function Service($http, $cookies, $sessionStorage) {
       console.log('inside auth service');
         $http.post('/uapi/login', user)
             .then(function(response) {
+                
                 if (response.data.success && response.data.token) {
                 //  console.log('inside success');
                     $sessionStorage.tokenDetails = {
@@ -33,8 +34,12 @@ function Service($http, $cookies, $sessionStorage) {
                         }
                     };
                     $cookies.putObject('authUser', obj);
+                    sessionStorage.setItem('user',obj.currentUser.userInfo);
+                    sessionStorage.setItem('userRole',obj.currentUser.userInfo.role);
+                    sessionStorage.setItem('username',obj.currentUser.userInfo.name);
                     console.log(obj);
                     callback(response);
+                    
                 } else {
                     callback(response);
                 }
@@ -45,7 +50,9 @@ function Service($http, $cookies, $sessionStorage) {
     //  console.log('removing user');
         delete $sessionStorage.tokenDetails;
         $http.defaults.headers.common.Authorization = '';
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('user');
+        sessionStorage.clear();
         $cookies.remove('authUser');
-
     }
 }

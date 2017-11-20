@@ -11,8 +11,8 @@ app.config(function($routeProvider,$locationProvider) {
         templateUrl: './views/userCreate.html',
         controller: 'userController'
     }).when('/admin', {
-        templateUrl: './views/admin.html'
-        // controller: 'adminController'
+        templateUrl: './views/admin.html',
+         controller: 'homeController'
     }).when('/changePassword', {
         templateUrl: './views/changePassword.html',
         controller: 'userController'
@@ -58,8 +58,10 @@ app.run(function($rootScope, $http, $location, $sessionStorage, $cookies) {
         var publicPages = ['/','/login','/user','/error'];
 
         var authUser = $cookies.getObject('authUser');
+
         if (authUser != undefined) {
             var loggedInUser = authUser.currentUser.userInfo;
+             
         }
         var restrictedPage = publicPages.indexOf($location.path()) === -1;
         if (restrictedPage && !$sessionStorage.tokenDetails && $location.path() != '') {
@@ -89,6 +91,7 @@ app.run(function($rootScope, $http, $location, $sessionStorage, $cookies) {
             {}
         }
         console.log('RestrictedPage '+restrictedPage);
+        console.log('UserName from app.js : '+sessionStorage.getItem('username'));
         console.log($sessionStorage.tokenDetails);
     });
 });

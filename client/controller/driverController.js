@@ -1,4 +1,4 @@
-angular.module('meanApp').controller('driverController', function($scope, $http,$cookies,$rootScope,$location) 
+angular.module('meanApp').controller('driverController', function($scope, $http,AuthenticationService,$cookies,$rootScope,$location) 
 {
      $scope.driverData="";
     //  $scope.driverUData="";
@@ -10,10 +10,64 @@ angular.module('meanApp').controller('driverController', function($scope, $http,
 var num,n,car,carn,carnum,cart,DriverDetails;
   var socket = io();
   $(document).ready(function(){
+
+ sessionStorage.setItem('checkV',true);
+        sessionStorage.setItem('adminCheckV',true);
+        sessionStorage.setItem('driverCheckV',true);
+        sessionStorage.setItem('userCheckV',true);
+        
+        $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                console.log('UserName form driverController : '+$rootScope.LoginName);
+                
+
+        $rootScope.check=true;
+        $rootScope.userCheck=true;
+        $rootScope.adminCheck=true;
+        $rootScope.driverCheck=true;
+       
+
+        $rootScope.User=sessionStorage.getItem('userRole');
+        console.log('Role from driverController : '+$rootScope.User);
+            if ($rootScope.User=='Admin') {
+                  console.log($rootScope.driverCheck);
+                  // $location.path('/admin');
+                  sessionStorage.setItem('checkV',false);
+                  sessionStorage.setItem('adminCheckV',false);
+                $rootScope.check=false;//sessionStorage.getItem('checkV');
+                $rootScope.adminCheck=false;//sessionStorage.getItem('adminCheckV');
+                $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                console.log('UserName form driverController : '+$rootScope.LoginName);
+                  }
+                  if ($rootScope.User=='Driver') {
+                    // $location.path('/driverH');
+                    $rootScope.LoginName=$cookies.getObject('authUser');
+                    sessionStorage.setItem('checkV',false);
+                    sessionStorage.setItem('driverCheckV',false);
+                    $rootScope.check=false;//sessionStorage.getItem('checkV');
+                    $rootScope.driverCheck=false;//sessionStorage.getItem('driverCheckV');
+                    $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                    console.log('UserName form driverController : '+$rootScope.LoginName);
+                  }
+                  if ($rootScope.User=='Customer') {
+                    // $location.path('/bookCab');
+                    $rootScope.LoginName=$cookies.getObject('authUser');
+                    sessionStorage.setItem('checkV',false);
+                    sessionStorage.setItem('userCheckV',false);
+                    $rootScope.check=false;//sessionStorage.getItem('checkV');
+                    $rootScope.userCheck=false;//sessionStorage.getItem('userCheckV');
+                    $rootScope.LoginName=sessionStorage.getItem('username');//$cookies.getObject('authUser');
+                    console.log('UserName form driverController : '+$rootScope.LoginName);
+                  }
+                  else {
+                    console.log('Not authorized');
+                  }
+
+
+
   var name=$cookies.getObject('authUser');
-  var drivername=$rootScope.LoginName.currentUser.userInfo.name;
-  var drivermob=$rootScope.LoginName.currentUser.userInfo.phone;
-  var email=$rootScope.LoginName.currentUser.userInfo.email;
+  var drivername=name.currentUser.userInfo.name;
+  var drivermob=name.currentUser.userInfo.phone;
+  var email=name.currentUser.userInfo.email;
   $http.get('/dapi/getDriverByPhone/'+drivermob).then(function (response) {
     if(response){
       $scope.getDriverCab=response.data;
@@ -139,7 +193,6 @@ function initialize() {
             });
           }
           init1();
-
 };
 
 
@@ -223,13 +276,6 @@ $scope.UpdateDriver = function(t){
     }
       window.location.reload();
   }
-
-
-
-
   
-  
-
-
 });
 
