@@ -3,7 +3,7 @@ app.config(function($routeProvider,$locationProvider) {
       $locationProvider.hashPrefix('');
     $routeProvider.when('/', {
         templateUrl: './views/home.html',
-        // controller: 'homeController'
+        controller: 'homeController'
     }).when('/login', {
         templateUrl: './views/login.html',
         controller: 'loginController'

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('meanApp').factory('AuthenticationService', Service);
 
-function Service($http, $cookies, $sessionStorage) {
+function Service($http, $cookies,$rootScope, $sessionStorage) {
     var service = {};
     service.Login = Login;
     service.Logout = Logout;
@@ -53,6 +53,12 @@ function Service($http, $cookies, $sessionStorage) {
         sessionStorage.removeItem('username');
         sessionStorage.removeItem('user');
         sessionStorage.clear();
+        
+        $rootScope.check=true;
+        $rootScope.userCheck=true;
+        $rootScope.adminCheck=true;
+        $rootScope.driverCheck=true;
+        
         $cookies.remove('authUser');
     }
 }
